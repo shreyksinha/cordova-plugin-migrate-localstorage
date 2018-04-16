@@ -1,4 +1,4 @@
-# Migrate LocalStorage from UIWebview to ionic webview
+# Migrate LocalStorage from UIWebview to Ionic WKWebView
 
 This plugin can be used in conjunction with
 [cordova-plugin-ionic-webview](https://github.com/ionic-team/cordova-plugin-ionic-webview)
@@ -10,7 +10,7 @@ left of.
 
 Simply add the plugin to your cordova project via the cli:
 ```sh
-cordova plugin add https://github.com/kas84/cordova-plugin-migrate-localstorage
+cordova plugin add https://github.com/paulpatarinski/cordova-plugin-migrate-localstorage
 ```
 
 ## Notes
@@ -19,7 +19,7 @@ cordova plugin add https://github.com/kas84/cordova-plugin-migrate-localstorage
 yet. This means that if you've run your app with `WKWebView` before this plugin will likely not work.
 To test if data is migrated over correctly:
     1. Delete the app from your emulator or device
-    2. Remove the `cordova-plugin-ionic-webview` and `https://github.com/kas84/cordova-plugin-migrate-localstorage` plugins
+    2. Remove the `cordova-plugin-ionic-webview` and `https://github.com/paulpatarinski/cordova-plugin-migrate-localstorage` plugins
     3. Run your app and store some data in LocalStorage
     4. Add both plugins back
     5. Run your app again. Your data should still be there!
@@ -34,3 +34,7 @@ One of the drawbacks of migrating Cordova apps to `WKWebView` is that LocalStora
 not persist between the two. Unfortunately,
 [cordova-plugin-ionic-webview](https://github.com/ionic-team/cordova-plugin-ionic-webview)
 does not offer a solution for this out of the box.
+
+## Credits
+
+This plugin is a fork of a [fork](https://github.com/kas84/cordova-plugin-migrate-localstorage) of a [copy](https://github.com/MaKleSoft/cordova-plugin-migrate-localstorage) of the [Telerik WKWebView source](https://github.com/Telerik-Verified-Plugins/WKWebView/blob/master/src/ios/MyMainViewController.m), so all props go to someone else. #open-source
