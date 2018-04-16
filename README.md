@@ -10,7 +10,7 @@ left of.
 
 Simply add the plugin to your cordova project via the cli:
 ```sh
-cordova plugin add https://github.com/paulpatarinski/cordova-plugin-migrate-localstorage
+cordova plugin add cordova-plugin-ionic-migrate-localstorage
 ```
 
 ## Notes
@@ -19,10 +19,10 @@ cordova plugin add https://github.com/paulpatarinski/cordova-plugin-migrate-loca
 yet. This means that if you've run your app with `WKWebView` before this plugin will likely not work.
 To test if data is migrated over correctly:
     1. Delete the app from your emulator or device
-    2. Remove `cordova-plugin-migrate-localstorage`
+    2. Remove `cordova-plugin-ionic-migrate-localstorage`
     
     ```
-    cordova plugin rm cordova-plugin-migrate-localstorage
+    cordova plugin rm cordova-plugin-ionic-migrate-localstorage
     ```
     3. Remove the `cordova-plugin-ionic-webview`
     
@@ -38,7 +38,7 @@ To test if data is migrated over correctly:
     ```
     
     ```
-    cordova plugin add https://github.com/paulpatarinski/cordova-plugin-migrate-localstorage
+    cordova plugin add cordova-plugin-ionic-migrate-localstorage
     ```
    
     6. Run your app again. Your data should still be there!
