@@ -35,6 +35,9 @@ not persist between the two. Unfortunately,
 [cordova-plugin-ionic-webview](https://github.com/ionic-team/cordova-plugin-ionic-webview)
 does not offer a solution for this out of the box.
 
+## Disclaimer
+This plugin has only been tested with cordova-plugin-ionic-webview v1.1.16, so use at your own risk.
+
 ## Credits
 
 This plugin is a fork of a [fork](https://github.com/kas84/cordova-plugin-migrate-localstorage) of a [copy](https://github.com/MaKleSoft/cordova-plugin-migrate-localstorage) of the [Telerik WKWebView source](https://github.com/Telerik-Verified-Plugins/WKWebView/blob/master/src/ios/MyMainViewController.m), so all props go to someone else. #open-source
