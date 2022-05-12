@@ -33,15 +33,15 @@
     NSString* appLibraryFolder = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString* original;
 
-    if ([[NSFileManager defaultManager] fileExistsAtPath:[appLibraryFolder stringByAppendingPathComponent:@"WebKit/LocalStorage/file__0.localstorage"]]) {
-        original = [appLibraryFolder stringByAppendingPathComponent:@"WebKit/LocalStorage"];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[appLibraryFolder stringByAppendingPathComponent:@"WebsiteData/LocalStorage/http_localhost_8080.localstorage"]]) {
+        original = [appLibraryFolder stringByAppendingPathComponent:@"WebsiteData/LocalStorage"];
     } else {
         original = [appLibraryFolder stringByAppendingPathComponent:@"Caches"];
     }
 
-    original = [original stringByAppendingPathComponent:@"file__0.localstorage"];
+    original = [original stringByAppendingPathComponent:@"http_localhost_8080.localstorage"];
 
-    NSString* target = [[NSString alloc] initWithString: [appLibraryFolder stringByAppendingPathComponent:@"WebKit"]];
+    NSString* target = [[NSString alloc] initWithString: [appLibraryFolder stringByAppendingPathComponent:@"WebsiteData"]];
 
 #if TARGET_IPHONE_SIMULATOR
     // the simulutor squeezes the bundle id into the path
@@ -49,7 +49,7 @@
     target = [target stringByAppendingPathComponent:bundleIdentifier];
 #endif
 
-    target = [target stringByAppendingPathComponent:@"WebsiteData/LocalStorage/http_localhost_8080.localstorage"];
+    target = [target stringByAppendingPathComponent:@"WebsiteData/LocalStorage/ionic_localhost.localstorage"];
 
     // Only copy data if no existing localstorage data exists yet for wkwebview
     if (![[NSFileManager defaultManager] fileExistsAtPath:target]) {
