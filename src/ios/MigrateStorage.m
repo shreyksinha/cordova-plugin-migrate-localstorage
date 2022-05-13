@@ -122,35 +122,7 @@
         logDebug(@"%@ LocalStorage original does not exist!", TAG);
     }
 
-    sqlite3 *oldLocalStorageDB;
-
-    if([fileManager fileExistsAtPath:originalLocalStorageFilePath]){
-      NSLog(@"ket insideiffffffffffffffff!");
-        logDebug(@"\n\n\nOld localStorage found.");
-        const char *dbpath = [originalLocalStorageFilePath UTF8String];
-        int open_rc = sqlite3_open(dbpath, &oldLocalStorageDB);
-
-        if (open_rc == SQLITE_OK) {
-            logDebug(@"sqlite3_open_v2 was ok");
-
-            NSMutableData* data = [NSMutableData dataWithLength:sizeof(char) * 100];
-            char* errmsg = [data mutableBytes];
-            const char* sqlCommand = "PRAGMA journal_mode = WAL;";
-
-            int exec_rc = sqlite3_exec(oldLocalStorageDB, sqlCommand, NULL, NULL, &errmsg);
-
-            logDebug(@"sqlite3_exec return code: %i", exec_rc);
-
-            sqlite3_close(oldLocalStorageDB);
-                                    logDebug(@"After sqlite3_close");
-        } else {
-            logDebug(@"sqlite3_open_v2 failed? return code: %i", open_rc);
-        }
-    } else {
-          NSLog(@"ket ld localStorage not found ooooooooooooooooooooooooooooooooooooo");
-
-        logDebug(@"Old localStorage not found");
-    }
+   
 
     // Only copy data if no existing localstorage data exists yet for wkwebview
     if (![fileManager fileExistsAtPath:targetLocalStorageFilePath]) {
