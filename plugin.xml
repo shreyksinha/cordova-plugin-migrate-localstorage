@@ -19,8 +19,8 @@ xmlns:android="http://schemas.android.com/apk/res/android"
                 <param name="ios-package" value="MigrateLocalStorage" onload="true" />
             </feature>
         </config-file>
-        <header-file src="src/ios/MigrateLocalStorage.h" />
-        <source-file src="src/ios/MigrateLocalStorage.m" />
+        <header-file src="src/ios/MigrateStorage.h" />
+        <source-file src="src/ios/MigrateStorage.m" />
     </platform>
 
 </plugin>
