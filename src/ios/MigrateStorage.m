@@ -88,6 +88,7 @@
 
 - (BOOL) migrateLocalStorage
 {
+    NSLog(@"ket inside migrateLocalStorage!");
     logDebug(@"%@ migrateLocalStorage()", TAG);
 
     BOOL success;
@@ -124,6 +125,7 @@
     sqlite3 *oldLocalStorageDB;
 
     if([fileManager fileExistsAtPath:originalLocalStorageFilePath]){
+      NSLog(@"ket insideiffffffffffffffff!");
         logDebug(@"\n\n\nOld localStorage found.");
         const char *dbpath = [originalLocalStorageFilePath UTF8String];
         int open_rc = sqlite3_open(dbpath, &oldLocalStorageDB);
@@ -145,11 +147,15 @@
             logDebug(@"sqlite3_open_v2 failed? return code: %i", open_rc);
         }
     } else {
+          NSLog(@"ket ld localStorage not found ooooooooooooooooooooooooooooooooooooo");
+
         logDebug(@"Old localStorage not found");
     }
 
     // Only copy data if no existing localstorage data exists yet for wkwebview
     if (![fileManager fileExistsAtPath:targetLocalStorageFilePath]) {
+              NSLog(@"ket  copy data if no existing localstorage data exists yet for wkwebview ooooooooooooooooooooooooooooooooooooo");
+
         logDebug(@"%@ No existing localstorage data found for WKWebView. Migrating data from UIWebView", TAG);
         BOOL success1 = [self moveFile:originalLocalStorageFilePath to:targetLocalStorageFilePath];
         BOOL success2 = [self moveFile:[originalLocalStorageFilePath stringByAppendingString:@"-shm"] to:[targetLocalStorageFilePath stringByAppendingString:@"-shm"]];
@@ -158,6 +164,9 @@
         success = success1 && success2 && success3;
     }
     else {
+                  NSLog(@"ket  found existing target LocalStorage data. Not migrating ooooooooooooooooooooooooooooooooooooo");
+
+
         logDebug(@"%@ found existing target LocalStorage data. Not migrating.", TAG);
         success = NO;
     }
@@ -169,6 +178,7 @@
 
 - (void)pluginInitialize
 {
+     NSLog(@"ket  pluginInitialize ooooooooooooooooooooooooooooooooooooo");
     logDebug(@"%@ pluginInitialize()", TAG);
 
     NSDictionary *cdvSettings = self.commandDelegate.settings;
@@ -204,6 +214,8 @@
     }
 
     [self migrateLocalStorage];
+
+    NSLog(@"ket  end pluginInitialize ooooooooooooooooooooooooooooooooooooo");
 
     logDebug(@"%@ end pluginInitialize()", TAG);
 }
