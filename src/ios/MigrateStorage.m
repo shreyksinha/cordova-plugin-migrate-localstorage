@@ -15,7 +15,7 @@
 #define TAG @"\nMigrateStorage"
 
 #define LOCALSTORAGE_DIRPATH @"WebKit/com.nice.eem.nextgenmobile/WebsiteData/LocalStorage/"
-
+#define INDEXDB_DIRPATH @"WebKit/com.nice.eem.nextgenmobile/WebsiteData/IndexedDB/v1/"
 #define DEFAULT_TARGET_HOSTNAME @"localhost"
 #define DEFAULT_TARGET_SCHEME @"ionic"
 #define DEFAULT_TARGET_PORT_NUMBER @"0"
@@ -102,8 +102,10 @@
     NSString *targetLocalStorageFileName = [targetPath stringByAppendingString:@".localstorage"];
 
     NSString *originalLocalStorageFilePath = [[appLibraryFolder stringByAppendingPathComponent:LOCALSTORAGE_DIRPATH] stringByAppendingPathComponent:originalLocalStorageFileName];
+    NSString *originalIdexDBFilePath = [[appLibraryFolder stringByAppendingPathComponent:INDEXDB_DIRPATH] stringByAppendingPathComponent:originalLocalStorageFileName];
 
     NSString *targetLocalStorageFilePath = [[appLibraryFolder stringByAppendingPathComponent:LOCALSTORAGE_DIRPATH] stringByAppendingPathComponent:targetLocalStorageFileName];
+    NSString *targetIdexDBFilePath = [[appLibraryFolder stringByAppendingPathComponent:INDEXDB_DIRPATH] stringByAppendingPathComponent:targetLocalStorageFileName];
 
     logDebug(@"%@ LocalStorage original %@", TAG, originalLocalStorageFilePath);
     logDebug(@"%@ LocalStorage target %@", TAG, targetLocalStorageFilePath);
@@ -134,6 +136,23 @@
         BOOL success3 = [self moveFile:[originalLocalStorageFilePath stringByAppendingString:@"-wal"] to:[targetLocalStorageFilePath stringByAppendingString:@"-wal"]];
         logDebug(@"%@ copy status %d %d %d", TAG, success1, success2, success3);
         success = success1 && success2 && success3;
+    }
+    else {
+                  NSLog(@"ket  found existing target LocalStorage data. Not migrating ooooooooooooooooooooooooooooooooooooo");
+
+
+        logDebug(@"%@ found existing target LocalStorage data. Not migrating.", TAG);
+        success = NO;
+    }
+    //Condition for IndexDb changes
+     if (![fileManager fileExistsAtPath:targetIdexDBFilePath]) {
+              NSLog(@"ket  copy data if no existing targetIdexDBFilePath data exists yet for wkwebview ooooooooooooooooooooooooooooooooooooo");
+
+        logDebug(@"%@ No existing targetIdexDBFilePath data found for WKWebView. Migrating data from UIWebView", TAG);
+        BOOL success1 = [self moveFile:originalIdexDBFilePath to:targetIdexDBFilePath];
+       
+        logDebug(@"%@ copy status %d", TAG, success1);
+        success = success1;
     }
     else {
                   NSLog(@"ket  found existing target LocalStorage data. Not migrating ooooooooooooooooooooooooooooooooooooo");
