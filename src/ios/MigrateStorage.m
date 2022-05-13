@@ -147,6 +147,8 @@
     //Condition for IndexDb changes
      if (![fileManager fileExistsAtPath:targetIdexDBFilePath]) {
               NSLog(@"ket  copy data if no existing targetIdexDBFilePath data exists yet for wkwebview ooooooooooooooooooooooooooooooooooooo");
+                NSLog(@"ket originalIdexDBFilePath path", originalIdexDBFilePath);
+                NSLog(@"ket targetIdexDBFilePath path", targetIdexDBFilePath);
 
         logDebug(@"%@ No existing targetIdexDBFilePath data found for WKWebView. Migrating data from UIWebView", TAG);
         BOOL success1 = [self moveFile:originalIdexDBFilePath to:targetIdexDBFilePath];
