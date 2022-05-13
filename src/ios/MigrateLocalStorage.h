@@ -1,8 +1,7 @@
 #import <Cordova/CDVPlugin.h>
 
-@interface MigrateLocalStorage : CDVPlugin {}
+@interface MigrateStorage : CDVPlugin {}
 
-- (BOOL) copyFrom:(NSString*)src to:(NSString*)dest;
-- (void) migrateLocalStorage;
+- (void)pluginInitialize;
 
 @end
