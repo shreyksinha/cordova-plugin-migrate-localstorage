@@ -1,7 +1,7 @@
 #import <Cordova/CDV.h>
 #import <Cordova/NSDictionary+CordovaPreferences.h>
 #import <sqlite3.h>
-#import "MigrateLocalStorage.h"
+#import "MigrateStorage.h"
 
 // Uncomment this to enable debug mode
 // #define DEBUG_MODE = 1;
