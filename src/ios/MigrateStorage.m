@@ -32,6 +32,7 @@
 #define SETTING_ORIGINAL_HOSTNAME @"MIGRATE_STORAGE_ORIGINAL_HOSTNAME"
 #define SETTING_ORIGINAL_SCHEME @"MIGRATE_STORAGE_ORIGINAL_SCHEME"
 
+
 @interface MigrateStorage ()
     @property (nonatomic, assign) NSString *originalPortNumber;
     @property (nonatomic, assign) NSString *originalHostname;
@@ -102,10 +103,8 @@
     NSString *targetLocalStorageFileName = [targetPath stringByAppendingString:@".localstorage"];
 
     NSString *originalLocalStorageFilePath = [[appLibraryFolder stringByAppendingPathComponent:LOCALSTORAGE_DIRPATH] stringByAppendingPathComponent:originalLocalStorageFileName];
-    NSString *originalIdexDBFilePath = [[appLibraryFolder stringByAppendingPathComponent:INDEXDB_DIRPATH] stringByAppendingPathComponent:originalLocalStorageFileName];
 
     NSString *targetLocalStorageFilePath = [[appLibraryFolder stringByAppendingPathComponent:LOCALSTORAGE_DIRPATH] stringByAppendingPathComponent:targetLocalStorageFileName];
-    NSString *targetIdexDBFilePath = [[appLibraryFolder stringByAppendingPathComponent:INDEXDB_DIRPATH] stringByAppendingPathComponent:targetLocalStorageFileName];
 
     logDebug(@"%@ LocalStorage original %@", TAG, originalLocalStorageFilePath);
     logDebug(@"%@ LocalStorage target %@", TAG, targetLocalStorageFilePath);
@@ -144,28 +143,37 @@
         logDebug(@"%@ found existing target LocalStorage data. Not migrating.", TAG);
         success = NO;
     }
-    //Condition for IndexDb changes
-     if (![fileManager fileExistsAtPath:targetIdexDBFilePath]) {
-              NSLog(@"ket  copy data if no existing targetIdexDBFilePath data exists yet for wkwebview ooooooooooooooooooooooooooooooooooooo");
-               
-
-        logDebug(@"%@ No existing targetIdexDBFilePath data found for WKWebView. Migrating data from UIWebView", TAG);
-        BOOL success1 = [self moveFile:originalIdexDBFilePath to:targetIdexDBFilePath];
-       
-        logDebug(@"%@ copy status %d", TAG, success1);
-        success = success1;
-    }
-    else {
-                  NSLog(@"ket  found existing target LocalStorage data. Not migrating ooooooooooooooooooooooooooooooooooooo");
-
-
-        logDebug(@"%@ found existing target LocalStorage data. Not migrating.", TAG);
-        success = NO;
-    }
 
     logDebug(@"%@ end migrateLocalStorage() with success: %@", TAG, success ? @"YES": @"NO");
 
     return success;
+}
+
+- (BOOL) migrateIndexedDB
+{
+    NSLog(@"%@ migrateIndexedDB()", TAG);
+    
+    NSString *originalPath = [self getOriginalPath];
+    NSString *targetPath = [self getTargetPath];
+    
+    NSString *appLibraryFolder = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    
+    NSString *original = [[appLibraryFolder stringByAppendingPathComponent:INDEXDB_DIRPATH] stringByAppendingPathComponent:originalPath];
+    NSString *target = [[appLibraryFolder stringByAppendingPathComponent:INDEXDB_DIRPATH] stringByAppendingPathComponent:targetPath];
+    
+    NSLog(@"%@ IDB original %@", TAG, original);
+    NSLog(@"%@ IDB target %@", TAG, target);
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:target]) {
+        NSLog(@"%@ No existing IDB data found for WKWebView. Migrating data from UIWebView", TAG);
+        BOOL success = [self moveFile:original to:target];
+        NSLog(@"%@ copy status IDB %d", TAG, success);
+        return success;
+    }
+    else {
+        NSLog(@"%@ found IDB data. Not migrating", TAG);
+        return NO;
+    }
 }
 
 - (void)pluginInitialize
@@ -206,6 +214,7 @@
     }
 
     [self migrateLocalStorage];
+    [self migrateIndexedDB];
 
     NSLog(@"ket  end pluginInitialize ooooooooooooooooooooooooooooooooooooo");
 
